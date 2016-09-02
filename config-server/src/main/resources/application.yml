@@ -1,0 +1,52 @@
+server:
+  port: 8888
+
+info:
+  component: Config Server
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+    secure-port-enabled: false
+    non-secure-port-enabled: true
+    metadata-map:
+      user: ${security.user.name}
+      password: ${security.user.password}
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: https://localhost:8761/eureka/
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+  cloud:
+    config:
+      server:
+        git:
+          uri:
+          username:
+          password:
+          basedir: /java/config-server-cache
+          clone-on-start: true
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: changeit
+  sessions: stateless
+
+management:
+  security:
+    enabled: true
+    sessions: never
+  context-path: /management
+
+encrypt:
+  key: changeit
+  rsa:
+    strong: true
