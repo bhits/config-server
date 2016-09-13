@@ -26,9 +26,6 @@ spring:
     config:
       server:
         git:
-          uri:
-          username:
-          password:
           basedir: /java/config-server-cache
           clone-on-start: true
 
