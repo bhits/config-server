@@ -26,8 +26,8 @@ spring:
     config:
       server:
         git:
-          uri: file:///java/config-server-git-repo
-          basedir: /java/config-server-cache
+          uri: file:/java/config-server-git-repo
+          #basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
           clone-on-start: true
 
 security:
