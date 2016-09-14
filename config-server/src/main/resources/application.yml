@@ -26,6 +26,7 @@ spring:
     config:
       server:
         git:
+          uri: file:///java/config-server-git-repo
           basedir: /java/config-server-cache
           clone-on-start: true
 
