@@ -1,9 +1,7 @@
 server:
   port: 8899
-
 info:
   component: Config Server
-
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -16,17 +14,16 @@ eureka:
     healthcheck:
       enabled: true
     service-url:
-      defaultZone: https://localhost:8761/eureka/
-
+      # endpoint for discovery-server, pass '--eureka.client.protocol=https' if discovery-server is running on https
+      defaultZone: ${eureka.client.protocol:http}://localhost:8761/eureka/
 spring:
   cloud:
     config:
       server:
         git:
-          uri: file:/java/config-server-git-repo
-          #basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
-          clone-on-start: true
-
+          uri: file:/java/c2s-config-data
+          # basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
+          # clone-on-start: true # Setting a repository to be cloned is to identify a misconfigured configuration source quickly, while the Config Server is starting up.
 security:
   basic:
     enabled: true
@@ -34,13 +31,11 @@ security:
     name: admin
     password: changeit
   sessions: stateless
-
 management:
   security:
     enabled: true
     sessions: stateless
   context-path: /management
-
 encrypt:
   key: changeit
   rsa:
