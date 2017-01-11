@@ -20,6 +20,9 @@ spring:
   cloud:
     config:
       server:
+        # Enable encrypt property if provider server a symmetric or asymmetric key
+        encrypt:
+          enabled: false
         git:
           uri: file:/java/c2s-config-data
           # basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
@@ -36,7 +39,7 @@ management:
     enabled: true
     sessions: stateless
   context-path: /management
-encrypt:
-  key: changeit
-  rsa:
-    strong: true
+# The server exposes /encrypt and /decrypt endpoints for Encryption and Decryption
+# Please configure a symmetric key if needed
+#encrypt:
+#  key: key_value
