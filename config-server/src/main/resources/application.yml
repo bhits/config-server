@@ -25,8 +25,13 @@ spring:
           enabled: false
         git:
           uri: file:/java/c2s-config-data
-          # basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
-          # clone-on-start: true # Setting a repository to be cloned is to identify a misconfigured configuration source quickly, while the Config Server is starting up.
+          # basedir is only effective if remote repository is used
+          # EXAMPLE:
+          # basedir: /java/config-server-git-repo
+          #
+          # Setting a repository to be cloned is to identify a misconfigured configuration source quickly, while the Config Server is starting up.
+          # EXAMPLE:
+          # clone-on-start: true
 security:
   basic:
     enabled: true
@@ -40,6 +45,6 @@ management:
     sessions: stateless
   context-path: /management
 # The server exposes /encrypt and /decrypt endpoints for Encryption and Decryption
-# Please configure a symmetric key if needed
-#encrypt:
-#  key: key_value
+# You need to configure a symmetric key
+# EXAMPLE:
+# encrypt.key: key_value
