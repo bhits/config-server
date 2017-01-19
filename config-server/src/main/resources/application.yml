@@ -20,7 +20,7 @@ spring:
   cloud:
     config:
       server:
-        # Enable encrypt property if provider server a symmetric or asymmetric key
+        # Enable encrypt property for config-server side decryption while serving configuration (if true, also requires `encrypt.key`)
         encrypt:
           enabled: false
         git:
@@ -45,6 +45,6 @@ management:
     sessions: stateless
   context-path: /management
 # The server exposes /encrypt and /decrypt endpoints for Encryption and Decryption
-# You need to configure a symmetric key
+# You need to configure a key for server side encryption/decryption
 # EXAMPLE:
 # encrypt.key: key_value
