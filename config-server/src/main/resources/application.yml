@@ -1,9 +1,7 @@
 server:
   port: 8899
-
 info:
   component: Config Server
-
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -16,20 +14,24 @@ eureka:
     healthcheck:
       enabled: true
     service-url:
-      defaultZone: https://localhost:8761/eureka/
-
+      # endpoint for discovery-server, pass '--eureka.client.protocol=https' if discovery-server is running on https
+      defaultZone: ${eureka.client.protocol:http}://localhost:8761/eureka/
 spring:
-  rabbitmq:
-    host: localhost
-    port: 5672
   cloud:
     config:
       server:
+        # Enable encrypt property for config-server side decryption while serving configuration (if true, also requires `encrypt.key`)
+        encrypt:
+          enabled: false
         git:
-          uri: file:/java/config-server-git-repo
-          #basedir: /java/config-server-git-repo # basedir is only effective if remote repository is used
-          clone-on-start: true
-
+          uri: file:/java/c2s-config-data
+          # basedir is only effective if remote repository is used
+          # EXAMPLE:
+          # basedir: /java/config-server-git-repo
+          #
+          # Setting a repository to be cloned is to identify a misconfigured configuration source quickly, while the Config Server is starting up.
+          # EXAMPLE:
+          # clone-on-start: true
 security:
   basic:
     enabled: true
@@ -37,14 +39,12 @@ security:
     name: admin
     password: changeit
   sessions: stateless
-
 management:
   security:
     enabled: true
-    sessions: never
+    sessions: stateless
   context-path: /management
-
-encrypt:
-  key: changeit
-  rsa:
-    strong: true
+# The server exposes /encrypt and /decrypt endpoints for Encryption and Decryption
+# You need to configure a key for server side encryption/decryption
+# EXAMPLE:
+# encrypt.key: key_value
