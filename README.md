@@ -61,7 +61,7 @@ Please see the [default configuration](config-server/src/main/resources/applicat
 
 #### Override a Configuration Using Program Arguments While Running as a Docker Container:
 
-+ `docker run -d bhits/config-server:latest --server.port=80 --spring.datasource.password=strongpassword`
++ `docker run -d bhits/config-server:latest --server.port=80
 
 + In a `docker-compose.yml`, this can be provided as:
 ```yml
