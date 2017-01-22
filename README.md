@@ -22,6 +22,7 @@ With the Config Server you have a central place to manage external properties fo
 
 + [Oracle Java JDK 8 with Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 + [Docker Engine](https://docs.docker.com/engine/installation/) (for building a Docker image from the project)
++ [C2S Config Data Repository](https://github.com/bhits/c2s-config-data/) (The default implementation of the server storage backend uses git)
 
 ### Commands
 
@@ -40,17 +41,17 @@ To build the project, navigate to the folder that contains the `pom.xml` file us
 
 ### Commands
 
-This is a [Spring Boot](https://projects.spring.io/spring-boot/) project and serves the API via an embedded Tomcat instance, therefore there is no need for a separate application server to run this service.
+This is a [Spring Boot](https://projects.spring.io/spring-boot/) project and serves the application via an embedded Tomcat instance, therefore there is no need for a separate application server to run this service.
 + Run as a JAR file: `java -jar config-server-x.x.x-SNAPSHOT.jar <additional program arguments>`
 + Run as a Docker Container: `docker run -d bhits/config-server:latest <additional program arguments>`
 
-*NOTE: In order for this API to fully function as a microservice in the Consent2Share (C2S) application, it is also required to setup the dependency microservices and support level infrastructure. Please refer to the [Consent2Share Deployment Guide](https://github.com/bhits/consent2share/releases/download/2.0.0/c2s-deployment-guide.pdf) for instructions to setup the C2S infrastructure.*
+*NOTE: In order for this application to fully function as a microservice in the Consent2Share (C2S) application, it is also required to setup the dependency microservices and support level infrastructure. Please refer to the [Consent2Share Deployment Guide](https://github.com/bhits/consent2share/releases/download/2.0.0/c2s-deployment-guide.pdf) for instructions to setup the C2S infrastructure.*
 
 ## Configure
 
-This API runs with a default configuration that is primarily targeted for the development environment. However, [Spring Boot](https://projects.spring.io/spring-boot/) supports several methods to override the default configuration to configure the API for a certain deployment environment.
+This application runs with a default configuration that is primarily targeted for the development environment. However, [Spring Boot](https://projects.spring.io/spring-boot/) supports several methods to override the default configuration to configure the application for a certain deployment environment.
 
-Please see the [default configuration](config-server/src/main/resources/application.yml) for this API as a guidance and override the specific configuration per the environment as needed. Also, please refer to [Spring Boot Externalized Configuration](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html) documentation to see how Spring Boot applies the order to load the properties and [Spring Boot Common Properties](http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html) documentation to see the common properties used by Spring Boot.
+Please see the [default configuration](config-server/src/main/resources/application.yml) for this application as a guidance and override the specific configuration per the environment as needed. Also, please refer to [Spring Boot Externalized Configuration](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html) documentation to see how Spring Boot applies the order to load the properties and [Spring Boot Common Properties](http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html) documentation to see the common properties used by Spring Boot.
 
 
 ### Examples for Overriding a Configuration in Spring Boot
@@ -74,6 +75,19 @@ services:
 ...
 ```
 *NOTE: Please note that these additional arguments will be appended to the default `ENTRYPOINT` specified in the `Dockerfile` unless the `ENTRYPOINT` is overridden.*
+
+### Config Data Repository
+
+The config server is implemented with [Spring Config Server](http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html/). The default strategy for locating property sources is to clone a git repository and use it to initialize a mini SpringApplication.
+
+*NOTE:* 
++ The default config data repository is [C2S Config Data Repository](https://github.com/bhits/c2s-config-data/).
++ `spring.cloud.config.server.git.uri`: it is used for providing the configuration for git repository *(depending on the chosen authentication mechanism, this can be either https or ssh). File system reference can also be used especially for development environment, ie: for windows* `file:///C:/java/c2s-config-data` (or `file:/java/c2s-config-data` if `C:` is the default drive and the file is on the local file system) *, for unix* `file://${user.home}/c2s-config-data` *...etc.*
++ Encryption and Decryption which is required a key. There are two ways for providing the key.
+    - Config Server Side
+      `encrypt.key`: To set a key in application.yml.
+    - Config Client Side (Current option)
+      `encrypt.key`: To set a key in bootstrap.yml.
 
 ### Enable SSL
 
@@ -107,7 +121,7 @@ Java has a default CA Certificates Store that allows it to trust well-known cert
 
 *NOTE: The `cacerts` references regarding volume mapping above are files, not directories.*
 
-[//]: # (## API Documentation)
+[//]: # (## Application Documentation)
 
 [//]: # (## Notes)
 
