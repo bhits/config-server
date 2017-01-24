@@ -48,3 +48,12 @@ management:
 # You need to configure a key for server side encryption/decryption
 # EXAMPLE:
 # encrypt.key: key_value
+---
+# updates configuration for docker environment
+spring.profiles: docker
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eureka.client.protocol:http}://discovery-server.c2s.com:8761/eureka/
+  instance:
+    prefer-ip-address: true
