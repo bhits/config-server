@@ -1,6 +1,6 @@
-# Config Server
+# Configuration Server
 
-The Config Server provide support for externalized configuration in the Consent2Share (C2S) application, including following C2S components:
+The Configuration Server (config-server) provides support for externalized configuration in the Consent2Share (C2S) application, including the following C2S components:
 
 + Admin Portal UI
 + Patient Portal UI
@@ -15,7 +15,8 @@ The Config Server provide support for externalized configuration in the Consent2
 + Patient Registration API
 + Try My Policy API
 
-With the Config Server you have a central place to manage external properties for applications across all environments.
+The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository on GitHub. The [default configuration](config-server/src/main/resources/application.yml) of this server also registers itself to [Discovery Server](https://github.com/bhits/discovery-server), so the other microservices can dynamically discover the Configuration Server at startup and load additional configurations. The Configuration Server is based on [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. Please see the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for details.
+
 ## Build
 
 ### Prerequisites
@@ -62,7 +63,7 @@ Please see the [default configuration](config-server/src/main/resources/applicat
 
 #### Override a Configuration Using Program Arguments While Running as a Docker Container:
 
-+ `docker run -d bhits/config-server:latest --server.port=80
++ `docker run -d bhits/config-server:latest --server.port=80`
 
 + In a `docker-compose.yml`, this can be provided as:
 ```yml
@@ -78,16 +79,25 @@ services:
 
 ### Config Data Repository
 
-The config server is implemented with [Spring Config Server](http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html/). The default strategy for locating property sources is to clone a git repository and use it to initialize a mini SpringApplication.
+The config-server is implemented using [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. The [default configuration](config-server/src/main/resources/application.yml) provided with this server serves the configuration from a local Git repository on file system (`file:/java/c2s-config-data`). Please follow the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for alternative scenarios.
 
-*NOTE:* 
-+ The default config data repository is [C2S Config Data Repository](https://github.com/bhits/c2s-config-data/).
-+ `spring.cloud.config.server.git.uri`: it is used for providing the configuration for git repository *(depending on the chosen authentication mechanism, this can be either https or ssh). File system reference can also be used especially for development environment, ie: for windows* `file:///C:/java/c2s-config-data` (or `file:/java/c2s-config-data` if `C:` is the default drive and the file is on the local file system) *, for unix* `file://${user.home}/c2s-config-data` *...etc.*
-+ Encryption and Decryption which is required a key. There are two ways for providing the key.
-    - Config Server Side
-      `encrypt.key`: To set a key in application.yml.
-    - Config Client Side (Current option)
-      `encrypt.key`: To set a key in bootstrap.yml.
+Currently, C2S utilizes the config-server to centralize the shared configuration in a single Git repository; however this can be extended to manage environment specific configurations. The default configuration data repository for development environment is located at [https://github.com/bhits/c2s-config-data](https://github.com/bhits/c2s-config-data).
+
+#### Configure a Config Data Git Repository
+
+`spring.cloud.config.server.git.uri` property can be overridden to load the configuration data from a different repository. If it is targeted to GitHub, it can be either `https` or `ssh` URI depending on the chosen authentication mechanism. File system reference can also be used (especially for development environment).
+
+*Example:*
+
+For Windows. `file:///C:/java/c2s-config-data` (or `file:/java/c2s-config-data` if `C:` is the default drive and the file is on the local file system).
+
+For Unix `file://${user.home}/c2s-config-data` *...etc.*
+
+####  Encryption and Decryption
+
+There are two strategies for decryption of encrypted properties: config-server side and client side. C2S currently implements the client side strategy, meaning the encrypted configuration is served to the configuration clients as it is and the decryption is performed by the configuration client (ie: PHR API...etc.). The `encrypt.key` property in the `bootstrap.yml` file of the configuration clients contains the symmetric key for decryption.
+
+For config-server side decryption, one must set `spring.cloud.config.server.encrypt.enabled=true` and `encrypt.key` in the config-server.
 
 ### Enable SSL
 
