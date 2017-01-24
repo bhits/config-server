@@ -15,7 +15,7 @@ The Configuration Server (config-server) provides support for externalized confi
 + Patient Registration API
 + Try My Policy API
 
-The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository on GitHub. The [default configuration](config-server/src/main/resources/application.yml) of this server also registers itself to [Discovery Server](https://github.com/bhits/discovery-server), so the other microservices can dynamically discover the Configuration Server at startup and load additional configurations. The Configuration Server is based on [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. Please see the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for details.
+The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository like repository on GitHub. The [default configuration](config-server/src/main/resources/application.yml) of this server also registers itself to [Discovery Server](https://github.com/bhits/discovery-server), so the other microservices can dynamically discover the Configuration Server at startup and load additional configurations. The Configuration Server is based on [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. Please see the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for details.
 
 ## Build
 
@@ -23,11 +23,11 @@ The Configuration Server can serve the configurations from a central Git reposit
 
 + [Oracle Java JDK 8 with Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 + [Docker Engine](https://docs.docker.com/engine/installation/) (for building a Docker image from the project)
-+ [C2S Config Data Repository](https://github.com/bhits/c2s-config-data/) (The default implementation of the server storage backend uses git)
++ [C2S Config Data Repository](https://github.com/bhits/c2s-config-data/) (The default implementation of the server storage backend uses Git)
 
 ### Commands
 
-This is a Maven project and requires [Apache Maven](https://maven.apache.org/) 3.3.3 or greater to build it. It is recommended to use the *Maven Wrapper* scripts provided with this project. *Maven Wrapper* requires an internet connection to download Maven and project dependencies for the very first build.
+This is a Maven project and requires [Apache Maven](https://maven.apache.org/) 3.3.3 or greater to build it. It is recommended to use the *Maven Wrapper* scripts provided with this project. *Maven Wrapper* requires an Internet connection to download Maven and project dependencies for the very first build.
 
 To build the project, navigate to the folder that contains the `pom.xml` file using the terminal/command line.
 
@@ -43,6 +43,7 @@ To build the project, navigate to the folder that contains the `pom.xml` file us
 ### Commands
 
 This is a [Spring Boot](https://projects.spring.io/spring-boot/) project and serves the application via an embedded Tomcat instance, therefore there is no need for a separate application server to run this service.
+
 + Run as a JAR file: `java -jar config-server-x.x.x-SNAPSHOT.jar <additional program arguments>`
 + Run as a Docker Container: `docker run -d bhits/config-server:latest <additional program arguments>`
 
@@ -79,13 +80,13 @@ services:
 
 ### Config Data Repository
 
-The config-server is implemented using [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. The [default configuration](config-server/src/main/resources/application.yml) provided with this server serves the configuration from a local Git repository on file system (`file:/java/c2s-config-data`). Please follow the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for alternative scenarios.
+The config-server is implemented using [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. The [default configuration](config-server/src/main/resources/application.yml) provided with this server sets the configuration data repository URL to a local Git repository on file system (`file:/java/c2s-config-data`). Please follow the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for alternative scenarios.
 
 Currently, C2S utilizes the config-server to centralize the shared configuration in a single Git repository; however this can be extended to manage environment specific configurations. The default configuration data repository for development environment is located at [https://github.com/bhits/c2s-config-data](https://github.com/bhits/c2s-config-data).
 
 #### Configure a Config Data Git Repository
 
-`spring.cloud.config.server.git.uri` property can be overridden to load the configuration data from a different repository. If it is targeted to GitHub, it can be either `https` or `ssh` URI depending on the chosen authentication mechanism. File system reference can also be used (especially for development environment).
+`spring.cloud.config.server.git.uri` property can be overridden to load the configuration data from a different Git repository. If it is targeted to GitHub, it can be either `https` or `ssh` URI depending on the chosen authentication mechanism. File system reference can also be used (especially for development environment).
 
 *Example:*
 
