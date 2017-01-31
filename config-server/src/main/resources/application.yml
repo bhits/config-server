@@ -1,5 +1,7 @@
 server:
   port: 8899
+logging:
+  file: /java/C2S_LOGS/config-server/config-server.log
 info:
   component: Config Server
 eureka:
@@ -47,6 +49,7 @@ management:
 # The server exposes /encrypt and /decrypt endpoints for Encryption and Decryption
 # You need to configure a key for server side encryption/decryption
 # EXAMPLE:
+#encrypt.key: U5bgFraKRMNN
 # encrypt.key: key_value
 ---
 # updates configuration for docker environment
