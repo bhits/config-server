@@ -1,6 +1,6 @@
 
 # Short Description
-The config-server provides support for externalized configuration in the Consent2Share application.
+The Configuration Server provides support for externalized configuration in the Consent2Share application.
 
 # Full Description
 
@@ -12,15 +12,15 @@ The config-server provides support for externalized configuration in the Consent
 
 For more information about this image, the source code, and its history, please see the [GitHub repository](https://github.com/bhits/config-server).
 
-# What is Config-server?
+# What is Configuration Server?
 
-The Configuration Server (config-server) provides support for externalized configuration in the Consent2Share application. The config-serve can serve the configurations from a central Git repository on file system or a remote repository like repository on GitHub. Consent2Share provides a [`Default Configuration Data Git Repository`]( https://github.com/bhits/c2s-config-data).
+The Configuration Server (config-server) provides support for externalized configuration in the Consent2Share application. The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository like repository on GitHub. Consent2Share provides a [`Default Configuration Data Git Repository`]( https://github.com/bhits/c2s-config-data).
 
 For more information and related downloads for Consent2Share, please visit [Consent2Share](https://bhits.github.io/consent2share/).
 
 # How to Use This Image
 
-## Start a Config-server Instance
+## Start a Configuration Server Instance
 
 Be sure to familiarize yourself with the repository's [README.md](https://github.com/bhits/config-server) file before starting the instance.
 
@@ -42,21 +42,21 @@ The following is an example to override the default security user password:
 
 ## Using a custom configuration file
 
-To use custom `application.yml`, mount the file to the docker host and set the environment variable `spring.config.location`.
+To use a custom `application.yml`, mount the file to the docker host and set the environment variable `spring.config.location`.
 
 `docker run -v "/path/on/dockerhost/C2S_PROPS/config-server/application.yml:/java/C2S_PROPS/config-server/application.yml" -d bhits/config-server:latest --spring.config.location="file:/java/C2S_PROPS/config-server/"`
 
-## Configure config data Git repository
+## Configure a Config Data Git Repository
 
-`spring.cloud.config.server.git.uri` is location of property resources, default value is `file:/java/c2s-config-data`. 
+`spring.cloud.config.server.git.uri` is the location of property resources, whose default value is `file:/java/c2s-config-data`. 
 
-Example to mount config data git repository on dockerhost to config server container: 
+Example to mount the [c2s-config-data]( https://github.com/bhits/c2s-config-data) Git repository on docker host to the Configuration Server container: 
 
 `docker run -v "/path/on/dockerhost/C2S_PROPS/c2s-config-data:/java/c2s-config-data" -d bhits/config-server:latest"`
 
 ## Environment Variables
 
-When you start the config-server image, you can edit the configuration of the config-server instance by passing one or more environment variables on the command line. 
+When you start the Configuration Server image, you can edit the configuration of the Configuration Server instance by passing one or more environment variables on the command line. 
 
 ### JAR_FILE
 
