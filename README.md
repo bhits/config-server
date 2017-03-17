@@ -2,18 +2,12 @@
 
 The Configuration Server (config-server) provides support for externalized configuration in the Consent2Share (C2S) application, including the following C2S components:
 
-+ Admin Portal UI
-+ Patient Portal UI
-+ Context Handler API
-+ Document Segmentation Service API
-+ Edge Server
-+ Patient User API
++ Consent2Share UI
++ Consent2Share UI API
++ Edge Server API
 + Patient Consent Management API
-+ Policy Enforcement Point API
-+ Patient Health Record API
 + Provider Lookup Service API
-+ Patient Registration API
-+ Try My Policy API
++ Value Set Service API
 
 The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository like repository on GitHub. The [default configuration](config-server/src/main/resources/application.yml) of this server also registers itself to [Discovery Server](https://github.com/bhits/discovery-server), so the other microservices can dynamically discover the Configuration Server at startup and load additional configurations. The Configuration Server is based on [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. Please see the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for details.
 
@@ -47,7 +41,7 @@ This is a [Spring Boot](https://projects.spring.io/spring-boot/) project and ser
 + Run as a JAR file: `java -jar config-server-x.x.x-SNAPSHOT.jar <additional program arguments>`
 + Run as a Docker Container: `docker run -d bhits/config-server:latest <additional program arguments>`
 
-*NOTE: In order for this application to fully function as a microservice in the C2S application, it is also required to setup the dependency microservices and support level infrastructure. Please refer to the [Consent2Share Deployment Guide](https://github.com/bhits/consent2share/releases/download/2.1.0/c2s-deployment-guide.pdf) for instructions to setup the C2S infrastructure.*
+*NOTE: In order for this API to fully function as a microservice in the Consent2Share application, it is required to setup the dependency microservices and the support level infrastructure. Please refer to the Consent2Share Deployment Guide in the corresponding Consent2Share release (see [Consent2Share Releases Page](https://github.com/bhits/consent2share/releases)) for instructions to setup the Consent2Share infrastructure.*
 
 ## Configure
 
