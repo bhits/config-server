@@ -4,10 +4,10 @@ The Configuration Server (config-server) provides support for externalized confi
 
 + Consent2Share UI
 + Consent2Share UI API
-+ Edge Server API
-+ Patient Consent Management API
-+ Provider Lookup Service API
-+ Value Set Service API
++ Edge Server 
++ Patient Consent Management Service
++ Provider Lookup Service 
++ Value Set Service 
 
 The Configuration Server can serve the configurations from a central Git repository on file system or a remote repository like repository on GitHub. The [default configuration](config-server/src/main/resources/application.yml) of this server also registers itself to [Discovery Server](https://github.com/bhits/discovery-server), so the other microservices can dynamically discover the Configuration Server at startup and load additional configurations. The Configuration Server is based on [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/) project. Please see the [Spring Cloud Config Documentation](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) for details.
 
