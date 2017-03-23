@@ -6,7 +6,7 @@ The Configuration Server provides support for externalized configuration in the 
 
 # Supported Source Code Tags and Current `Dockerfile` Link
 
-[`0.2.0 (latest)`](https://github.com/bhits/config-server/releases/tag/0.2.0)
+[`0.3.0 (latest)`](https://github.com/bhits/config-server/releases/tag/0.3.0)
 
 [`Current Dockerfile`](https://github.com/bhits/config-server/blob/master/config-server/src/main/docker/Dockerfile)
 
@@ -78,7 +78,7 @@ This environment variable is used to setup an application argument. The default 
 
 # Supported Docker Versions
 
-This image is officially supported on Docker version 1.12.1.
+This image is officially supported on Docker version 1.13.0.
 
 Support for older versions (down to 1.6) is provided on a best-effort basis.
 
