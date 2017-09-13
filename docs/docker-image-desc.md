@@ -6,9 +6,9 @@ The Configuration Server provides support for externalized configuration in the 
 
 # Supported Source Code Tags and Current `Dockerfile` Link
 
-[`0.3.0 (latest)`](https://github.com/bhits/config-server/releases/tag/0.3.0)
+[`0.4.0 (latest)`](https://github.com/bhits/config-server/releases/tag/0.4.0), [`0.3.0`](https://github.com/bhits/config-server/releases/tag/0.3.0)
 
-[`Current Dockerfile`](https://github.com/bhits/config-server/blob/master/config-server/src/main/docker/Dockerfile)
+[`Current Dockerfile`](../config-server/src/main/docker/Dockerfile)
 
 For more information about this image, the source code, and its history, please see the [GitHub repository](https://github.com/bhits/config-server).
 
