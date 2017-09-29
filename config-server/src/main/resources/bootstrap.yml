@@ -1,3 +1,5 @@
 spring:
   application:
     name: config-server
+logstash:
+  destination: dockerhost:5000
